@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "convert": "sfdx force:source:convert -r force-app -d deploy",
+        "deploy": "sfdx force:mdapi:deploy -d deploy -w -1 --verbose",
+        "start": "sfdx force:lightning:lwc:start"
+    },
+    "dependencies": {
+        "jspdf": "^2.2.0"
+    }
+}
