@@ -1,7 +1,18 @@
 import { api, LightningElement } from 'lwc';
-import { jsPDF } from './jsPDF'
+import html2pdf from './html2pdf'
+
+const host = location.hostname
 
 export default class pdf extends LightningElement {
+
+    @api filename = host.substring(0, host.includes('.') ? host.indexOf('.') : host.length)
+
+    @api scale = 2
+    @api margin = 1
+
+    @api orientation = 'portrait'
+    //@api unit = 'in'
+    //@api format = 'letter'
 
     @api 
     save(){
@@ -11,19 +22,39 @@ export default class pdf extends LightningElement {
 
         console.log(element)
 
-        const doc = new jsPDF('p', 'pt', 'a4', true)
-        doc.html(element, {
-            x: 10,
-            y: 10,
-            filename: this.filename ? this.filename : 'GeneratedPDF',
-            callback: function (doc) {
-              doc.save();
-            }
-        })
-        
+        const {
+            unit,
+            scale,
+            margin,
+            format,
+            filename,
+            orientation,
+        } = this;
+
+        const options = {
+            filename: `${filename}.pdf`,
+            margin: Number(margin),
+            image: {
+                type: 'jpeg', 
+                quality: 0.98 
+            },
+            html2canvas: {
+                scale: Number(scale), 
+            },
+            jsPDF: {
+                //unit, 
+                //format, 
+                orientation,
+            },
+        }
+
+        console.log(options)
+          
+        html2pdf().set(options).from(element).save();        
     }
 }
-/* 
+// todo: option for url below
+/*
 <template if:true={fileUrl.length}>
     <iframe src={fileUrl} class="document" ></iframe>
 </template>

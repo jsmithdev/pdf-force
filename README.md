@@ -6,7 +6,19 @@ Generate PDF from HTML (Salesforce, Client-side)
 
 ## API
 
-save -- function -- save the file to the client's machine
+`save` -- function,  save the file to the client's machine
+
+`filename` -- String,  name of the file when saving
+
+`orientation` -- String,  orientation of PDF; Defaults to `'portrait'`
+
+`scale` -- String,  scale of PDF; Defaults to `1`
+
+`margin` -- String,  PDF margin (in jsPDF units). Can be a single number, [vMargin, hMargin], or [top, left, bottom, right]; Defaults to `0`
+
+[comment]: <> (Below is being held until later)
+[comment]: <> (`unit` -- String,  unit of PDF; Defaults to `'in'`)
+[comment]: <> (`format` -- String,  format of PDF; Defaults to `'letter'`)
 
 ## Examples
 
@@ -54,16 +66,6 @@ export default class PdfExample extends LightningElement {
 
 The browser will initiate a download of the resulting PDF
 
-## Projects Used
-
-[jsPDF](https://github.com/MrRio/jsPDF)
-
-[pako](https://github.com/nodeca/pako)
-
-[html2canvas](https://github.com/niklasvh/html2canvas)
-
-[DOMPurify](https://github.com/cure53/DOMPurify)
-
 ## Deploy
 
 ### Click to Deploy
@@ -73,6 +75,15 @@ Select Production/Developer or Sandbox @ [https://component.land?share=jsmithdev
 ### SFDX Deployment
 
 Instructions can be found @ [https://github.com/jsmithdev/sfdx-deploy-instructions](https://github.com/jsmithdev/sfdx-deploy-instructions)
+
+## Projects Used
+
+[html2pdf](https://github.com/eKoopmans/html2pdf.js)
+
+- [jsPDF](https://github.com/MrRio/jsPDF)
+- [pako](https://github.com/nodeca/pako)
+- [html2canvas](https://github.com/niklasvh/html2canvas)
+- [DOMPurify](https://github.com/cure53/DOMPurify)
 
 ---
 
