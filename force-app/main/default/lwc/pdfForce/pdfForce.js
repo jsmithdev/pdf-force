@@ -1,7 +1,11 @@
 import { api, LightningElement } from 'lwc';
-import html2pdf from './html2pdf'
+import { loadScript } from 'lightning/platformResourceLoader';
+
+import html2pdf_res from '@salesforce/resourceUrl/html2pdf';
 
 const host = location.hostname
+
+console.log(html2pdf_res)
 
 export default class pdf extends LightningElement {
 
@@ -20,7 +24,7 @@ export default class pdf extends LightningElement {
         const slot = this.template.querySelector('slot')
         const element = slot.assignedElements({flatten: true})[0]
 
-        console.log(element)
+        //console.log(element)
 
         const {
             unit,
@@ -51,6 +55,13 @@ export default class pdf extends LightningElement {
         console.log(options)
           
         html2pdf().set(options).from(element).save();        
+    }
+
+    async renderedCallback() {
+
+        loadScript(this, html2pdf_res+'/html2pdf.bundle.min.js')
+        .then(console.log)
+        .error(console.error)
     }
 }
 // todo: option for url below
