@@ -20,7 +20,7 @@ export default class pdf extends LightningElement {
         const slot = this.template.querySelector('slot')
         const element = slot.assignedElements({flatten: true})[0]
 
-        console.log(element)
+        //console.log(element)
 
         const {
             unit,
@@ -48,7 +48,7 @@ export default class pdf extends LightningElement {
             },
         }
 
-        console.log(options)
+        //console.log(options)
           
         html2pdf().set(options).from(element).save();        
     }
