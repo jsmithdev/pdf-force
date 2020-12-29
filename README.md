@@ -4,6 +4,10 @@ Generate PDF from HTML (Salesforce, Client-side)
 
 ![screenshot](https://i.imgur.com/QSR5BoY.png)
 
+## Issues
+
+There's an issue [#1](https://github.com/jsmithdev/pdf-force/issues/1) that needs to be resolved
+
 ## API
 
 `save` -- function,  save the file to the client's machine
