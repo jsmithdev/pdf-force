@@ -6,7 +6,7 @@ Generate PDF from HTML (Salesforce, Client-side)
 
 ## Issues
 
-There's an issue [#1](https://github.com/jsmithdev/pdf-force/issues/1) that needs to be resolved
+There's an issue [#1](https://github.com/jsmithdev/pdf-force/issues/1) that needs to be resolved. Basically this was built locally w/ sfdx local dev server and requirements as is were too large to deploy and haven't found time to spend on it since
 
 ## API
 
@@ -74,7 +74,8 @@ The browser will initiate a download of the resulting PDF
 
 ### Click to Deploy
 
-Select Production/Developer or Sandbox @ [https://component.land?share=jsmithdev%2Fpdf-force](https://component.land?share=jsmithdev%2Fpdf-force)
+There's an issue [#1](https://github.com/jsmithdev/pdf-force/issues/1) that needs to be resolved first
+~~~Select Production/Developer or Sandbox @ [https://component.land?share=jsmithdev%2Fpdf-force](https://component.land?share=jsmithdev%2Fpdf-force)~~~
 
 ### SFDX Deployment
 
