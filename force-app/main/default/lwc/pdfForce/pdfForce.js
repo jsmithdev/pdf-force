@@ -1,11 +1,11 @@
-import { api, LightningElement } from 'lwc';
+import { api, LightningElement, } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 
-import html2pdf_res from '@salesforce/resourceUrl/html2pdf';
+import jsPDFUri from '@salesforce/resourceUrl/jsPDF';
+import dompurifyUri from '@salesforce/resourceUrl/dompurify';
+import html2canvasUri from '@salesforce/resourceUrl/html2canvas';
 
 const host = location.hostname
-
-console.log(html2pdf_res)
 
 export default class pdf extends LightningElement {
 
@@ -21,10 +21,10 @@ export default class pdf extends LightningElement {
     @api 
     save(){
 
-        const slot = this.template.querySelector('slot')
-        const element = slot.assignedElements({flatten: true})[0]
-
-        //console.log(element)
+        const content = this.template.querySelector('slot')
+			.assignedElements({flatten: true})
+			.map(el => el?.innerHTML || '')
+			.join('')
 
         const {
             unit,
@@ -40,7 +40,7 @@ export default class pdf extends LightningElement {
             margin: Number(margin),
             image: {
                 type: 'jpeg', 
-                quality: 0.98 
+                quality: 0.98,
             },
             html2canvas: {
                 scale: Number(scale), 
@@ -52,17 +52,42 @@ export default class pdf extends LightningElement {
             },
         }
 
-        console.log(options)
-          
-        html2pdf().set(options).from(element).save();        
+        console.log(JSON.parse(JSON.stringify({
+			content,
+			options,
+		})))
+        
+		const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+		doc.setFontSize(5);
+
+		doc.html(`<!DOCTYPE html><html>${content}</html>`, 
+		{
+			callback: (doc) => doc.save(options.filename),
+		});
+
+
+        //jsPDF().set(options).from(element).save();        
     }
 
-    async renderedCallback() {
+    renderedCallback() {
 
-        loadScript(this, html2pdf_res+'/html2pdf.bundle.min.js')
-        .then(console.log)
-        .error(console.error)
+		if(!this._initialized){
+			this._initialized = true
+			this.loadScripts()
+		}
     }
+
+	loadScripts(){
+		Promise.all([
+			loadScript(this, jsPDFUri),
+			loadScript(this, dompurifyUri),
+			loadScript(this, html2canvasUri),
+		])
+		.then(console.log)
+		.catch(console.error)
+	}
 }
 // todo: option for url below
 /*
